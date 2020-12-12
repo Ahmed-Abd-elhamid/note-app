@@ -7,7 +7,7 @@ class CollaborationsController < ApplicationController
   def index
     @collaborations = Collaboration.where(user_id: current_user.id)
     if params[:q]
-      @collaborations = @collaborations.joins(:note).where('title LIKE :q OR body LIKE :q', q: "%#{params[:q]}%")
+      @collaborations = @collaborations.joins(:note).where('lower(title) LIKE :q OR lower(body) LIKE :q', q: "%#{params[:q].downcase}%")
     end
   end
 

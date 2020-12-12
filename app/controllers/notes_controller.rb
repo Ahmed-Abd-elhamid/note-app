@@ -7,7 +7,7 @@ class NotesController < ApplicationController
   def index
     @notes = Note.where(user_id: current_user.id)
     if params[:q]
-      @notes = @notes.where('title LIKE :q OR body LIKE :q', q: "%#{params[:q]}%")
+      @notes = @notes.where('lower(title) LIKE :q OR lower(body) LIKE :q', q: "%#{params[:q].downcase}%")
     end
   end
 
