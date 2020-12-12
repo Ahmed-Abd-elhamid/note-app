@@ -1,24 +1,38 @@
 # README
+### Installing
+1. Download the zipped file and unzip it or Clone it
+    ```sh
+    $ git clone https://github.com/Ahmed-Abd-elhamid/Note-app.git
+    ```
+2. Run this command to install the packages needed
+    ```sh
+    $ bundle install
+    ```
+3. Run this command to create the database and migrate tables
+    ```sh
+    $ rake db:create db:migrate
+    ```
+4. Run this command to seed the database with data
+    ```sh
+    $ rake db:seed
+    ```
+5. Run this command to open the server
+    ```sh
+    $ rails s
+    ```
+>> Then you can login with test user (email: test@mail.com, password: 123456), or create new user from registration.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Technologies
 
-Things you may want to cover:
+- **Ruby on Rails** => Full Stack Application
 
-* Ruby version
+### License
+MIT License
 
-* System dependencies
+Copyright (c) 2020 [Ahmed Abdelhamid](https://github.com/Ahmed-Abd-elhamid)
 
-* Configuration
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-* Database creation
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
