@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @note.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @note.body %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @note.user.email %>
+</p>
+
+<p>
+  <strong>Collaborations:</strong>
+    <% @note.collaborations.each do |collaboration| %>
+      <%= collaboration.user.email %> - 
+    <% end %>
+</p>
+
+<%= link_to 'Edit', edit_note_path(@note) if current_user.id == @note.user.id %> |
+<%= link_to 'Back', notes_path %>

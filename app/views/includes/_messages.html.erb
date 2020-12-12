@@ -1,0 +1,6 @@
+<% flash.each do |key, value| %>
+  <div class="container p-1 text-center shadow rounded alert alert-<%= key %> <% if key == 'alert'%>alert-danger<% end %> <% if key == 'notice'%>alert-success<% end %> mt-2">
+    <h6 class="d-inline"><strong><%= key %>:</strong> <%= value %></h6>
+    <a href="#" data-dismiss="alert" class="close text-right text-dark">×</a>
+  </div>
+<% end %>

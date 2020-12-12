@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notes</h1>
+
+<div class="d-flex justify-content-center h-100">
+  <form class="searchbar">
+      <input class="search_input" type="text" name="q" placeholder="Search...">
+      <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notes.each do |note| %>
+      <tr>
+        <td><%= note.title %></td>
+        <td><%= note.body %></td>
+        <td><%= note.user_id %></td>
+        <td><%= link_to 'Show', note %></td>
+        <td><%= link_to 'Edit', edit_note_path(note) %></td>
+        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Note', new_note_path %>

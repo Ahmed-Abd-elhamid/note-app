@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Collaborations</h1>
+
+<div class="d-flex justify-content-center h-100">
+  <form class="searchbar">
+      <input class="search_input" type="text" name="q" placeholder="Search...">
+      <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>User</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collaborations.each do |collaboration| %>
+      <tr>
+        <td><%= collaboration.note.title %></td>
+        <td><%= collaboration.note.body %></td>
+        <td><%= collaboration.note.user_id %></td>
+        <td><%= link_to 'Show', collaboration_path(collaboration.note) %></td>
+        <td><%= link_to 'Edit', edit_collaboration_path(collaboration.note) if collaboration.can_edit %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
