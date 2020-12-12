@@ -24,7 +24,7 @@
       <tr>
         <td><%= note.title %></td>
         <td><%= note.body %></td>
-        <td><%= note.user_id %></td>
+        <td><%= note.user.email %></td>
         <td><%= link_to 'Show', note %></td>
         <td><%= link_to 'Edit', edit_note_path(note) %></td>
         <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -24,7 +24,7 @@
       <tr>
         <td><%= collaboration.note.title %></td>
         <td><%= collaboration.note.body %></td>
-        <td><%= collaboration.note.user_id %></td>
+        <td><%= collaboration.note.user.email %></td>
         <td><%= link_to 'Show', collaboration_path(collaboration.note) %></td>
         <td><%= link_to 'Edit', edit_collaboration_path(collaboration.note) if collaboration.can_edit %></td>
       </tr>

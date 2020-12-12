@@ -24,7 +24,8 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
+    @users = User.where.not(id: current_user.id)
   end
 
   # POST /notes
@@ -53,7 +54,7 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
 
     respond_to do |format|
       if @note.update(note_params)
@@ -71,7 +72,7 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
 
     @note.destroy
     respond_to do |format|
