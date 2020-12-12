@@ -1,5 +1,6 @@
 class CollaborationsController < ApplicationController
   before_action :set_note_collaboration, only: [:show, :edit, :update, :destroy]
+  before_action :set_note_vaidate, only: [:create]
   before_action :authenticate_user!
 
   # GET /collaborations
@@ -28,7 +29,10 @@ class CollaborationsController < ApplicationController
   # POST /collaborations
   # POST /collaborations.json
   def create
-    @collaboration = Collaboration.new(collaboration_params)
+    return render json: {:error => "unauthorized"}, status: :unauthorized if @note.nil? || @note.user_id == current_user.id
+    return render json: {:error => "existed!"}, status: :400 unless Collaboration.where(user_id: current_user.id, note_id: @note.id).first.nil?
+    
+    @collaboration = Collaboration.new(user_id: current_user.id, note_id: @note.id)
 
     respond_to do |format|
       if @collaboration.save
@@ -81,9 +85,15 @@ class CollaborationsController < ApplicationController
       @collaboration = Collaboration.where(note_id: @note.id, user_id: current_user.id).first
     end
 
+    def set_note_vaidate
+      unless collaboration_params[:uuid].nil? and collaboration_params[:password].nil?
+        @note = Note.where(uuid: collaboration_params[:uuid], password: collaboration_params[:password]).first
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def collaboration_params
-      params.require(:collaboration).permit(:note_id, :user_id)
+      params.require(:collaboration).permit(:note_id, :user_id, :uuid, :password)
     end
 
     # Only allow a list of trusted parameters through.

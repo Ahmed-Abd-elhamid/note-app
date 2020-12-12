@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_12_10_073434) do
   end
 
   create_table "notes", force: :cascade do |t|
+    t.string "uuid"
+    t.string "password"
     t.string "title"
     t.text "body"
     t.bigint "user_id", null: false

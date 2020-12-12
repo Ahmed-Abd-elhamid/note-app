@@ -16,6 +16,16 @@
 </p>
 
 <p>
+  <strong>Url:</strong>
+  <%= "#{request.host_with_port}/collaborations/new?uuid=#{@note.uuid}" %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= "#{@note.password}" %>
+</p>
+
+<p>
   <strong>Collaborations:</strong>
     <% @note.collaborations.each do |collaboration| %>
       <%= collaboration.user.email %> - 

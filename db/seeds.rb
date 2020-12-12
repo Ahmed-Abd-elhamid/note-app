@@ -8,9 +8,11 @@ def create_user(email, password)
 end
 
 def create_notes_collaborations
-    rand(8..12).times do |t1|
+    rand(10..14).times do |t1|
         user_id = User.all.sample.id
         note = Note.create!(
+            uuid: SecureRandom.uuid,
+            password: Faker::Internet.password,
             title: Faker::Game.title,
             body: Faker::Lorem.paragraph,
             user_id: user_id

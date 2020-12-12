@@ -2,6 +2,8 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  require 'faker'
+
   # GET /notes
   # GET /notes.json
   def index
@@ -32,6 +34,8 @@ class NotesController < ApplicationController
   # POST /notes.json
   def create
     @note = Note.new(note_params)
+    @note.uuid = SecureRandom.uuid
+    @note.password = Faker::Internet.password
 
     respond_to do |format|
       if @note.save
