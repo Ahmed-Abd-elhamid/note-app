@@ -36,8 +36,6 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
-
     @note = Note.new(note_params)
     @note.uuid = SecureRandom.uuid
     @note.password = Faker::Internet.password
@@ -63,6 +61,8 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
+    
     respond_to do |format|
       if @note.update(note_params)
         Collaboration.where(note_id: @note.id).update_all(can_edit: true) unless params[:can_edit]
