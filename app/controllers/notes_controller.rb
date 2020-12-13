@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
   require 'faker'
 
@@ -26,7 +27,6 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
     @users = User.where.not(id: current_user.id)
   end
 
@@ -58,8 +58,6 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
-
     respond_to do |format|
       if @note.update(note_params)
         Collaboration.where(note_id: @note.id).update_all(can_edit: true) unless params[:can_edit]
@@ -76,8 +74,6 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
-    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
-
     @note.destroy
     respond_to do |format|
       format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
@@ -103,5 +99,9 @@ class NotesController < ApplicationController
         Collaboration.create!(note_id: @note.id, can_edit: can_edit || false, user_id: user.id) unless user.nil?
         return false if user.nil?
       end
+    end
+
+    def authorize_user
+      return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
     end
 end

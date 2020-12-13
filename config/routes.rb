@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :collaborations, only: [:index, :show, :new, :create, :edit, :update]
+  resources :collaborations, except: [:destroy]
   resources :notes
   devise_for :users
 
