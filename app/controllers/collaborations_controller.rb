@@ -100,7 +100,6 @@ class CollaborationsController < ApplicationController
     end
 
     def authorize_user
-      abort
       return render json: {:error => "unauthorized"}, status: :unauthorized if @note.nil? || @note.user_id == current_user.id
       return render json: {:error => "existed!"}, status: 400 unless Collaboration.where(user_id: current_user.id, note_id: @note.id).first.nil?
     end
