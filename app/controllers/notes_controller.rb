@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+  # before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
   require 'faker'
 
@@ -16,7 +16,8 @@ class NotesController < ApplicationController
 
   # GET /notes/1
   # GET /notes/1.json
-  def show 
+  def show
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
   end
 
   # GET /notes/new
@@ -27,12 +28,16 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
+
     @users = User.where.not(id: current_user.id)
   end
 
   # POST /notes
   # POST /notes.json
   def create
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
+
     @note = Note.new(note_params)
     @note.uuid = SecureRandom.uuid
     @note.password = Faker::Internet.password
@@ -74,6 +79,8 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
+    return render json: {:error => "unauthorized"}, status: :unauthorized unless @note.user_id == current_user.id
+
     @note.destroy
     respond_to do |format|
       format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
