@@ -15,12 +15,12 @@
   <%= @note.user.email %>
 </p>
 
-<p>
+<p class="text-primary">
   <strong>Url:</strong>
   <%= "#{request.host_with_port}/collaborations/new?uuid=#{@note.uuid}" %>
 </p>
 
-<p>
+<p class="text-success">
   <strong>Password:</strong>
   <%= "#{@note.password}" %>
 </p>

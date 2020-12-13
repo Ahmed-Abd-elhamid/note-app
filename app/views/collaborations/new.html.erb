@@ -1,27 +1,33 @@
-<h1>New Collaboration</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8 border m-4 p-2 rounded shadow">
+        <h1>New Collaboration</h1>
 
-<%= form_with(model: @collaboration, local: true) do |form| %>
-  <% if @collaboration.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@collaboration.errors.count, "error") %> prohibited this collaboration from being saved:</h2>
+        <%= form_with(model: @collaboration, local: true) do |form| %>
+          <% if @collaboration.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@collaboration.errors.count, "error") %> prohibited this collaboration from being saved:</h2>
 
-      <ul>
-        <% @collaboration.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+              <ul>
+                <% @collaboration.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+            <%= form.hidden_field :uuid, value: params[:uuid] %>
+
+
+        <div class="form-group">
+            <%= form.label :password %>
+            <%= form.text_field :password, class: "form-control" %>
+          </div>
+            <div class="actions">
+            <%= form.submit %>
+          </div>
         <% end %>
-      </ul>
+
+        <%= link_to 'Back', collaborations_path %>
+        </div>
     </div>
-  <% end %>
-    <%= form.hidden_field :uuid, value: params[:uuid] %>
-
-
-<div class="form-group">
-    <%= form.label :password %>
-    <%= form.text_field :password, class: "form-control" %>
-  </div>
-    <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', collaborations_path %>
+</div>
