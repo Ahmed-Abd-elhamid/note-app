@@ -65,7 +65,7 @@ class NotesController < ApplicationController
     
     respond_to do |format|
       if @note.update(note_params)
-        Collaboration.where(note_id: @note.id).update_all(can_edit: true) unless params[:can_edit]
+        Collaboration.where(note_id: @note.id).update_all(can_edit: true) if params[:can_edit]
 
         format.html { redirect_to @note, notice: 'Note was successfully updated.' }
         format.json { render :show, status: :ok, location: @note }
@@ -101,7 +101,7 @@ class NotesController < ApplicationController
 
     def create_collaborations
       if params[:collaborations]
-        can_edit = true unless params[:can_edit]
+        can_edit = true if params[:can_edit]
         params[:collaborations].each do |collaboration|
           user = User.find(collaboration)
           Collaboration.create!(note_id: @note.id, can_edit: can_edit || false, user_id: user.id) unless user.nil?
