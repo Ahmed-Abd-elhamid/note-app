@@ -93,11 +93,15 @@ class NotesController < ApplicationController
     end
 
     def create_collaborations
-      can_edit = true unless params[:can_edit]
-      params[:collaborations].each do |collaboration|
-        user = User.find(collaboration)
-        Collaboration.create!(note_id: @note.id, can_edit: can_edit || false, user_id: user.id) unless user.nil?
-        return false if user.nil?
+      if params[:collaborations]
+        can_edit = true unless params[:can_edit]
+        params[:collaborations].each do |collaboration|
+          user = User.find(collaboration)
+          Collaboration.create!(note_id: @note.id, can_edit: can_edit || false, user_id: user.id) unless user.nil?
+          return false if user.nil?
+        end
+      else
+        true
       end
     end
 

@@ -1,8 +1,8 @@
 class CollaborationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_note_vaidate, only: [:create]
   before_action :authorize_user, only: [:create]
   before_action :set_note_collaboration, only: [:show, :edit, :update, :destroy]
-  before_action :set_note_vaidate, only: [:create]
 
   # GET /collaborations
   # GET /collaborations.json
@@ -100,6 +100,7 @@ class CollaborationsController < ApplicationController
     end
 
     def authorize_user
+      abort
       return render json: {:error => "unauthorized"}, status: :unauthorized if @note.nil? || @note.user_id == current_user.id
       return render json: {:error => "existed!"}, status: 400 unless Collaboration.where(user_id: current_user.id, note_id: @note.id).first.nil?
     end
